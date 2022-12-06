@@ -1,0 +1,27 @@
+application:
+  actions: actions
+  web: web-src
+  runtimeManifest:
+    packages:
+      helloworld:
+        license: Apache-2.0
+        actions:
+          helloAction:
+            function: actions/helloAction/index.js
+            web: 'yes'
+            runtime: nodejs:16
+            inputs:
+              LOG_LEVEL: debug
+            annotations:
+              require-adobe-auth: true
+              final: true
+          HelloMessage:
+            function: actions/HelloMessage/index.js
+            web: 'yes'
+            runtime: nodejs:16
+            inputs:
+              LOG_LEVEL: debug
+              apiKey: $SERVICE_API_KEY
+            annotations:
+              require-adobe-auth: true
+              final: true
