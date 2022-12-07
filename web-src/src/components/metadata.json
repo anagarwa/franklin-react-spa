@@ -1,0 +1,12 @@
+{
+    "jcr:primaryType":"nt:unstructured",
+    "url":"samplevideourl",
+    "url1":{
+    "jcr:primaryType":"nt:unstructured",
+    "url":"https://gdurl.com/cN8N"
+    },
+    "url2":{
+    "jcr:primaryType":"nt:unstructured",
+    "url":"https://gdurl.com/SIpe"
+    }
+}

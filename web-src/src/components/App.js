@@ -10,57 +10,51 @@ import SideBar from './SideBar'
 import ActionsForm from './ActionsForm'
 import { Home } from './Home'
 import { About } from './About'
+import { Link } from "react-router-dom";
+import "./styles.css";
+import { useEffect, useState, useRef } from "react";
+import data from './metadata.json'
 
 function App (props) {
     console.log('runtime object:', props.runtime)
     console.log('ims object:', props.ims)
+    const [videoIndex, setVideoIndex] = useState(0);
+    const ref = useRef(null);
+    useEffect(() => {
+        if (videoIndex === 0 && ref.current) {
+            ref.current.play();
+        }
+    }, [ref, videoIndex]);
 
     // use exc runtime event handlers
     // respond to configuration change events (e.g. user switches org)
-    props.runtime.on('configuration', ({ imsOrg, imsToken, locale }) => {
-        console.log('configuration change', { imsOrg, imsToken, locale })
-    })
-    // respond to history change events
-    props.runtime.on('history', ({ type, path }) => {
-        console.log('history change', { type, path })
-    })
+    // props.runtime.on('configuration', ({ imsOrg, imsToken, locale }) => {
+    //     console.log('configuration change', { imsOrg, imsToken, locale })
+    // })
+    // // respond to history change events
+    // props.runtime.on('history', ({ type, path }) => {
+    //     console.log('history change', { type, path })
+    // })
 
     return (
-        <Home></Home>
-        // <ErrorBoundary onError={onError} FallbackComponent={fallbackComponent}>
-        //     <Router>
-        //         <Provider theme={defaultTheme} colorScheme={'light'}>
-        //             <Grid
-        //                 areas={['sidebar content']}
-        //                 columns={['256px', '3fr']}
-        //                 rows={['auto']}
-        //                 height='100vh'
-        //                 gap='size-100'
-        //             >
-        //                 <View
-        //                     gridArea='sidebar'
-        //                     backgroundColor='gray-200'
-        //                     padding='size-200'
-        //                 >
-        //                     <SideBar></SideBar>
-        //                 </View>
-        //                 <View gridArea='content' padding='size-200'>
-        //                     <Switch>
-        //                         <Route exact path='/'>
-        //                             <Home></Home>
-        //                         </Route>
-        //                         <Route path='/actions'>
-        //                             <ActionsForm runtime={props.runtime} ims={props.ims} />
-        //                         </Route>
-        //                         <Route path='/about'>
-        //                             <About></About>
-        //                         </Route>
-        //                     </Switch>
-        //                 </View>
-        //             </Grid>
-        //         </Provider>
-        //     </Router>
-        // </ErrorBoundary>
+    <Link to="/menu">
+        <div className="main">
+            <video
+                style={{ display: videoIndex === 1 ? "none" : "block" }}
+                src={data["url1"].url}
+                autoPlay
+                muted
+                onEnded={() => setVideoIndex((idx) => idx + 1)}
+            />
+            <video
+                style={{ display: videoIndex === 0 ? "none" : "block" }}
+                src={data["url2"].url}
+                muted
+                loop
+                ref={ref}
+            />
+        </div>
+    </Link>
     )
 
     // Methods

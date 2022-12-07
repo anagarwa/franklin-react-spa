@@ -10,6 +10,9 @@ import Runtime, { init } from '@adobe/exc-app'
 import "@aem-sites/universal-editor-cors";
 import App from './components/App'
 import './index.css'
+import {BrowserRouter} from 'react-router-dom'
+import RoutesProj from './RoutesProj';
+
 
 window.React = require('react')
 /* Here you can bootstrap your application and configure the integration with the Adobe Experience Cloud Shell */
@@ -29,11 +32,14 @@ function bootstrapRaw () {
   const mockRuntime = { on: () => {} }
   const mockIms = {}
 
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
+      <BrowserRouter>
+        <RoutesProj/>
+      </BrowserRouter>
+  );
+
   // render the actual react application and pass along the runtime object to make it available to the App
-  ReactDOM.render(
-    <App runtime={mockRuntime} ims={mockIms} />,
-    document.getElementById('root')
-  )
 }
 
 function bootstrapInExcShell () {
@@ -57,10 +63,12 @@ function bootstrapInExcShell () {
       token: imsToken
     }
     // render the actual react application and pass along the runtime and ims objects to make it available to the App
-    ReactDOM.render(
-      <App runtime={runtime} ims={ims} />,
-      document.getElementById('root')
-    )
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(
+        <BrowserRouter>
+          <RoutesProj/>
+        </BrowserRouter>
+    );
   })
 
   // set solution info, shortTitle is used when window is too small to display full title
