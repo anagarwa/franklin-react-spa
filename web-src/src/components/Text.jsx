@@ -8,6 +8,7 @@ it.
 import React, { useEffect, useState, useMemo } from 'react';
 import { getEditorContext } from '@aem-sites/universal-editor-cors';
 import {fetchData} from "./fetchData";
+import {TextField} from '@adobe/react-spectrum'
 
 const Text = (props) => {
     const { itemID, itemProp, itemType, className } = props;
@@ -30,8 +31,10 @@ const Text = (props) => {
     }, [itemID, itemProp]);
 
     return (
+        <div>
         <div {...editorProps} className={className}>
             {itemType === "richtext" ? <div dangerouslySetInnerHTML={{__html: data[itemProp]}}/> : data[itemProp]}
+        </div>
         </div>
     );
 };

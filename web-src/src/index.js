@@ -12,7 +12,7 @@ import App from './components/App'
 import './index.css'
 import {BrowserRouter} from 'react-router-dom'
 import RoutesProj from './RoutesProj';
-
+import { Provider, defaultTheme } from '@adobe/react-spectrum'
 
 window.React = require('react')
 /* Here you can bootstrap your application and configure the integration with the Adobe Experience Cloud Shell */
@@ -35,7 +35,9 @@ function bootstrapRaw () {
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
       <BrowserRouter>
-        <RoutesProj/>
+        <Provider theme={defaultTheme}>
+          <RoutesProj/>
+        </Provider>
       </BrowserRouter>
   );
 

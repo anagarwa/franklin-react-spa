@@ -1,4 +1,5 @@
 const {REACT_APP_HOST_URI} = process.env;
+import data1 from "./metadata.json";
 
 export const fetchData = async (path) => {
     if (path.startsWith("local:")) {

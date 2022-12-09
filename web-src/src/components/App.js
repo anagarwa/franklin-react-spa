@@ -17,6 +17,9 @@ import data from './metadata.json'
 import {fetchData} from "./fetchData";
 import Text from "./Text";
 import {getEditorContext} from "@aem-sites/universal-editor-cors";
+import {Heading} from '@adobe/react-spectrum'
+import {Menu} from "./Menu";
+import {Flex, Image, Header, TextField} from '@adobe/react-spectrum'
 
 function App (props) {
     console.log('runtime object:', props.runtime)
@@ -29,23 +32,9 @@ function App (props) {
     let urls1 = {}
 
     useEffect(() => {
-        // async function sleepfun() {
-        //     console.log('start');
-        //
-        //     await sleep(1000);
-        //
-        //     console.log('end');
-        // }
-        // console.log("in use effect");
         if (videoIndex === 0 && ref.current) {
             ref.current.play();
         }
-        // fetchData("content/videourls").then((data1)  => {
-        //     urls1 = JSON.parse(data1);
-        //     console.log("in use effect3 " + urls1);
-        //     console.log("in use effect4 " + JSON.stringify(urls1));
-        // });
-        // console.log("in use effect2 " + JSON.stringify(urls1));
     }, [ref, videoIndex]);
 
     useEffect(() => {
@@ -53,10 +42,8 @@ function App (props) {
         fetchData("content/videourls").then((data1)  => {
             const stringJson = JSON.stringify(data1);
             setUrls(JSON.parse(stringJson));
-            console.log("in use effect3 " + JSON.stringify(urls));
 
         });
-        console.log("in use effect2 " + JSON.stringify(urls));
     }, []);
 
 
@@ -77,10 +64,20 @@ function App (props) {
         return (
             <div>
                 {renderState === 0 && isInEditor &&
-                    <div>
-                        < Text itemID = "urn:aemconnection:/content/videourls/url1" itemProp = "url" itemType = "text" / >
-                            < Text itemID = "urn:aemconnection:/content/videourls/url2" itemProp = "url" itemType = "text" / >
-                    </div>
+                    <View padding="size-1000">
+                        <Flex direction="row" height="size-3000" gap="size-100" alignItems="safe center">
+                            <Flex direction="column" backgroundColor="indigo-600" width="50%">
+                                <Header>Introduction Video</Header>
+                                <Image src="https://i.imgur.com/Z7AzH2c.png" alt="Sky and roof"/>
+                                <TextField label="Name" />
+                            </Flex>
+                            <Flex direction="column" backgroundColor="seafoam-600" flex>
+                                <Header>Loop Video</Header>
+                                <Image src="https://i.imgur.com/Z7AzH2c.png" alt="Sky and roof"/>
+                                <TextField label="Name" />
+                            </Flex>
+                        </Flex>
+                    </View>
 
                 }
                 {renderState === 0 &&
@@ -104,22 +101,7 @@ function App (props) {
                 }
                 {renderState === 1 &&
                     <div>
-                        <div className="menu">
-                            <h1 className="dialog">Welcome to Toyota!</h1>
-                            <div className="square">
-                            Show all models
-                            </div>
-                            <div className="square">
-                            Book
-                            </div>
-                            <div className="square">
-                            Schedule test drive
-                            </div>
-                        </div>
-                        <div>
-                            <Text itemID="urn:aemconnection:/content/videourls/url1" itemProp="url" itemType="text"/>
-                            <Text itemID="urn:aemconnection:/content/videourls/url2" itemProp="url" itemType="text"/>
-                        </div>
+                        <Menu/>
                     </div>
                 }
 
