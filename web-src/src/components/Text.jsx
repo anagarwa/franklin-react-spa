@@ -20,7 +20,6 @@ const Text = (props) => {
 
     useEffect(() => {
         getEditorContext({ isInEditor: setIsInEditor });
-        console.log("XYZ");
     }, []);
 
     const [data,setData] = React.useState({});
