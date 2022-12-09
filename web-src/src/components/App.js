@@ -68,13 +68,13 @@ function App (props) {
                         <Flex direction="row" height="size-3000" gap="size-100" alignItems="safe center">
                             <Flex direction="column" backgroundColor="indigo-600" width="50%">
                                 <Header>Introduction Video</Header>
-                                <Image src="https://i.imgur.com/Z7AzH2c.png" alt="Sky and roof"/>
-                                <TextField label="Name" />
+                                <Image src="https://gdurl.com/Mmz5" alt="Sky and roof"/>
+                                <Text itemID="urn:aemconnection:/content/imagesurls/url1" itemProp="url" itemType="text"/>
                             </Flex>
                             <Flex direction="column" backgroundColor="seafoam-600" flex>
                                 <Header>Loop Video</Header>
-                                <Image src="https://i.imgur.com/Z7AzH2c.png" alt="Sky and roof"/>
-                                <TextField label="Name" />
+                                <Image src="https://gdurl.com/yzFb" alt="Sky and roof"/>
+                                <Text itemID="urn:aemconnection:/content/videourls/url2" itemProp="url" itemType="text"/>
                             </Flex>
                         </Flex>
                     </View>
@@ -84,14 +84,14 @@ function App (props) {
                     <div className="main" onClick={() => setRenderState(1)}>
                     <video
                     style={{ display: videoIndex === 1 ? "none" : "block" }}
-                    src={data["url1"].url}
+                    src={urls["url1"].url}
                     autoPlay
                     muted
                     onEnded={() => setVideoIndex((idx) => idx + 1)}
                     />
                     <video
                     style={{ display: videoIndex === 0 ? "none" : "block" }}
-                    src={data["url2"].url}
+                    src={urls["url2"].url}
                     muted
                     loop
                     ref={ref}
