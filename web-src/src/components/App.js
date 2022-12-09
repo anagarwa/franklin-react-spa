@@ -24,6 +24,7 @@ function App (props) {
     const [videoIndex, setVideoIndex] = useState(0);
     const [isInEditor,setIsInEditor] = useState(false);
     const [urls, setUrls] = useState(0);
+    const [renderState, setRenderState] = useState(0);
     const ref = useRef(null);
     let urls1 = {}
 
@@ -73,43 +74,58 @@ function App (props) {
         console.log("url is empty");
         return (<></>);
     } else {
-        console.log("urls is not empty " + JSON.stringify(urls));
-        if (isInEditor) {
-            console.log("I am in editor");
-        }
         return (
             <div>
-            {
-                isInEditor &&
+                {renderState === 0 && isInEditor &&
                     <div>
                         < Text itemID = "urn:aemconnection:/content/videourls/url1" itemProp = "url" itemType = "text" / >
-                        < Text itemID = "urn:aemconnection:/content/videourls/url2" itemProp = "url" itemType = "text" / >
+                            < Text itemID = "urn:aemconnection:/content/videourls/url2" itemProp = "url" itemType = "text" / >
                     </div>
-            }
 
-        <Link to="/menu">
-                <div className="main">
+                }
+                {renderState === 0 &&
+                    <div className="main" onClick={() => setRenderState(1)}>
                     <video
-                        style={{ display: videoIndex === 1 ? "none" : "block" }}
-                        src={urls["url1"].url}
-                        autoPlay
-                        muted
-                        onEnded={() => setVideoIndex((idx) => idx + 1)}
+                    style={{ display: videoIndex === 1 ? "none" : "block" }}
+                    src={data["url1"].url}
+                    autoPlay
+                    muted
+                    onEnded={() => setVideoIndex((idx) => idx + 1)}
                     />
                     <video
-                        style={{ display: videoIndex === 0 ? "none" : "block" }}
-                        src={urls["url2"].url}
-                        muted
-                        loop
-                        ref={ref}
+                    style={{ display: videoIndex === 0 ? "none" : "block" }}
+                    src={data["url2"].url}
+                    muted
+                    loop
+                    ref={ref}
                     />
-                </div>
-            </Link>
+                    </div>
+
+                }
+                {renderState === 1 &&
+                    <div>
+                        <div className="menu">
+                            <h1 className="dialog">Welcome to Toyota!</h1>
+                            <div className="square">
+                            Show all models
+                            </div>
+                            <div className="square">
+                            Book
+                            </div>
+                            <div className="square">
+                            Schedule test drive
+                            </div>
+                        </div>
+                        <div>
+                            <Text itemID="urn:aemconnection:/content/videourls/url1" itemProp="url" itemType="text"/>
+                            <Text itemID="urn:aemconnection:/content/videourls/url2" itemProp="url" itemType="text"/>
+                        </div>
+                    </div>
+                }
+
             </div>
-        )
+        );
     }
-
-
     // Methods
 
     // error handler on UI rendering failure
